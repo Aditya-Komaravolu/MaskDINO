@@ -1,6 +1,8 @@
 _BASE_: Base-COCO-InstanceSegmentation.yaml
 MODEL:
   META_ARCHITECTURE: "MaskDINO"
+  WEIGHTS :  /home/aditya/MaskDINO/maskdino_swinl_50ep_300q_hid2048_3sd1_instance_maskenhanced_mask52.3ap_box59.0ap.pth
+
   SEM_SEG_HEAD:
     NAME: "MaskDINOHead"
     IGNORE_VALUE: 255
@@ -56,7 +58,7 @@ MODEL:
 
 SOLVER:
   AMP:
-    ENABLED: True
+    ENABLED: False
 TEST:
   EVAL_PERIOD: 5000
 #  EVAL_FLAG: 1

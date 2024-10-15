@@ -65,7 +65,9 @@ from detectron2.engine import (
 )
 import weakref
 
-
+from detectron2.data.datasets import register_coco_instances
+register_coco_instances("snaglist_train", {}, "/home/aditya/MaskDINO/data/coco/annotations/instances_train2017.json", "/home/aditya/MaskDINO/data/coco/train2017")
+register_coco_instances("snaglist_val", {}, "/home/aditya/MaskDINO/data/coco/annotations/instances_val2017.json", "/home/aditya/MaskDINO/data/coco/val2017")
 class Trainer(DefaultTrainer):
     """
     Extension of the Trainer class adapted to MaskFormer.
@@ -84,7 +86,7 @@ class Trainer(DefaultTrainer):
 
         model = create_ddp_model(model, broadcast_buffers=False)
         self._trainer = (AMPTrainer if cfg.SOLVER.AMP.ENABLED else SimpleTrainer)(
-            model, data_loader, optimizer
+            model, data_loader, optimizer,
         )
 
         self.scheduler = self.build_lr_scheduler(cfg, optimizer)
